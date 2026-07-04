@@ -1,0 +1,175 @@
+<section
+  class="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.25),_transparent_35%),linear-gradient(135deg,_#07111f_0%,_#10253d_45%,_#1c3d5d_100%)] px-4 py-6 text-white sm:px-6 lg:px-8"
+>
+  <div class="mx-auto grid min-h-screen max-w-7xl items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+    <div class="max-w-2xl px-2 py-6 sm:px-4 lg:px-0">
+      <div
+        class="mb-6 inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-100/90"
+      >
+        CameraRent
+      </div>
+      <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+        Rent gear. Shoot faster.
+      </h1>
+      <p class="mb-6 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
+        Access your camera rental account and get ready for your next production with premium gear
+        and fast pickup.
+      </p>
+      <ul class="space-y-3 text-sm text-slate-200 sm:text-base">
+        <li class="flex items-center gap-3">
+          <mat-icon>photo_camera</mat-icon> Premium mirrorless and cinema kits
+        </li>
+        <li class="flex items-center gap-3">
+          <mat-icon>schedule</mat-icon> Fast pickup and flexible returns
+        </li>
+        <li class="flex items-center gap-3">
+          <mat-icon>verified_user</mat-icon> Secure account access
+        </li>
+      </ul>
+    </div>
+
+    <mat-card
+      class="overflow-hidden rounded-[28px] border border-white/10 bg-white/95 p-2 shadow-[0_30px_90px_rgba(0,0,0,0.35)] backdrop-blur"
+    >
+      <mat-tab-group
+        [selectedIndex]="selectedTab() === 'login' ? 0 : 1"
+        (selectedTabChange)="switchTab($event.index === 0 ? 'login' : 'register')"
+      >
+        <mat-tab label="Login">
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="submitLogin()"
+            class="flex flex-col gap-4 px-2 py-4 sm:px-4"
+          >
+            <div class="flex flex-col gap-2">
+              <span class="text-sm font-medium text-slate-600">Sign in as</span>
+              <mat-button-toggle-group [value]="selectedRole()" appearance="legacy" class="w-full">
+                <mat-button-toggle value="client" (click)="selectRole('client')"
+                  >Client</mat-button-toggle
+                >
+                <mat-button-toggle value="employee" (click)="selectRole('employee')"
+                  >Employee</mat-button-toggle
+                >
+              </mat-button-toggle-group>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="text" placeholder="you@example.com" />
+              <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
+                >Email is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password" />
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
+                >Password is required</mat-error
+              >
+              <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')"
+                >At least 6 characters</mat-error
+              >
+            </mat-form-field>
+
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="isSubmitting()"
+              class="h-12 rounded-full"
+            >
+              {{ isSubmitting() ? 'Signing in...' : 'Sign in' }}
+            </button>
+          </form>
+        </mat-tab>
+
+        <mat-tab label="Register">
+          <form
+            [formGroup]="registerForm"
+            (ngSubmit)="submitRegister()"
+            class="flex flex-col gap-4 px-2 py-4 sm:px-4"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="Jovana" />
+              <mat-error *ngIf="registerForm.get('name')?.hasError('required')"
+                >Name is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Surname</mat-label>
+              <input matInput formControlName="surname" placeholder="Pauljevic" />
+              <mat-error *ngIf="registerForm.get('surname')?.hasError('required')"
+                >Surname is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email" placeholder="you@example.com" />
+              <mat-error *ngIf="registerForm.get('email')?.hasError('required')"
+                >Email is required</mat-error
+              >
+              <mat-error *ngIf="registerForm.get('email')?.hasError('email')"
+                >Enter a valid email</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password" />
+              <mat-error *ngIf="registerForm.get('password')?.hasError('required')"
+                >Password is required</mat-error
+              >
+              <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')"
+                >At least 6 characters</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Phone number</mat-label>
+              <input matInput formControlName="phoneNumber" placeholder="0641234567" />
+              <mat-error *ngIf="registerForm.get('phoneNumber')?.hasError('required')"
+                >Phone number is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>City ID</mat-label>
+              <input matInput type="number" formControlName="cityId" />
+              <mat-error *ngIf="registerForm.get('cityId')?.hasError('required')"
+                >City ID is required</mat-error
+              >
+              <mat-error *ngIf="registerForm.get('cityId')?.hasError('min')"
+                >Must be greater than 0</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Client type ID</mat-label>
+              <input matInput type="number" formControlName="clientTypeId" />
+              <mat-error *ngIf="registerForm.get('clientTypeId')?.hasError('required')"
+                >Client type ID is required</mat-error
+              >
+              <mat-error *ngIf="registerForm.get('clientTypeId')?.hasError('min')"
+                >Must be greater than 0</mat-error
+              >
+            </mat-form-field>
+
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="isSubmitting()"
+              class="h-12 rounded-full"
+            >
+              {{ isSubmitting() ? 'Creating account...' : 'Create account' }}
+            </button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</section>

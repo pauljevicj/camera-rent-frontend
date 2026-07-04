@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+::ng-deep .mat-mdc-tab-group {
+  --mdc-tab-indicator-active-indicator-color: #2563eb;
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  font-weight: 600;
+}

@@ -1,0 +1,31 @@
+<mat-card class="mb-6 rounded-3xl border border-slate-200 shadow-sm">
+  <form [formGroup]="form">
+    <div class="grid grid-cols-1 gap-4 p-6 md:grid-cols-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Start date</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>End date</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="flex items-end">
+        <button
+          mat-flat-button
+          color="primary"
+          class="w-full"
+          (click)="onSearch()"
+          [disabled]="form.invalid"
+        >
+          Search Cameras
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

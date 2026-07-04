@@ -1,0 +1,28 @@
+export interface CameraApiResponse {
+  id?: number;
+  status?: string;
+  pricePerDay?: number;
+  cameraCondition?: string;
+  year?: number;
+  cameraModel?: {
+    id?: number;
+    brand?: string;
+    model?: string;
+  };
+}
+
+export interface CameraModel {
+  id: number;
+  name: string;
+  brand: string;
+  model: string;
+  pricePerDay: number;
+  status: 'AVAILABLE' | 'TAKEN' | 'UNKNOWN';
+  condition: string;
+  year: number | null;
+}
+
+export interface CameraSearchEvent {
+  start: Date;
+  end: Date;
+}
