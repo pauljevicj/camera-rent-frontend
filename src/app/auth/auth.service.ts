@@ -33,9 +33,8 @@ export class AuthService {
     return this.http.post<AuthResponse | string>(`${this.apiUrl}/client/register`, payload);
   }
 
-  login(payload: LoginPayload, role: 'client' | 'employee'): Observable<AuthResponse | unknown> {
-    const endpoint = role === 'employee' ? '/user/login' : '/client/login';
-    return this.http.post<AuthResponse | unknown>(`${this.apiUrl}${endpoint}`, payload, {
+  login(payload: LoginPayload): Observable<AuthResponse | unknown> {
+    return this.http.post<AuthResponse | unknown>(`${this.apiUrl}/login`, payload, {
       withCredentials: true,
     });
   }

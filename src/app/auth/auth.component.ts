@@ -79,7 +79,7 @@ export class AuthComponent {
     }
 
     this.isSubmitting.set(true);
-    this.authService.login(payload, this.selectedRole()).subscribe({
+    this.authService.login(payload).subscribe({
       next: (response) => {
         this.isSubmitting.set(false);
         const token = this.authCookieService.extractToken(response);
@@ -87,9 +87,7 @@ export class AuthComponent {
           this.authCookieService.setToken(token);
         }
         this.snackBar.open('Welcome back! You are now signed in.', 'Close', { duration: 2500 });
-        this.router.navigate([
-          this.selectedRole() === 'client' ? '/client-main' : '/employee-main',
-        ]);
+        this.router.navigate(['/employee-main']);
       },
       error: () => {
         this.isSubmitting.set(false);
