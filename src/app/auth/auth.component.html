@@ -41,18 +41,6 @@
             (ngSubmit)="submitLogin()"
             class="flex flex-col gap-4 px-2 py-4 sm:px-4"
           >
-            <div class="flex flex-col gap-2">
-              <span class="text-sm font-medium text-slate-600">Sign in as</span>
-              <mat-button-toggle-group [value]="selectedRole()" appearance="legacy" class="w-full">
-                <mat-button-toggle value="client" (click)="selectRole('client')"
-                  >Client</mat-button-toggle
-                >
-                <mat-button-toggle value="employee" (click)="selectRole('employee')"
-                  >Employee</mat-button-toggle
-                >
-              </mat-button-toggle-group>
-            </div>
-
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
               <input matInput formControlName="email" type="text" placeholder="you@example.com" />

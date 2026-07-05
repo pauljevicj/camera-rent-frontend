@@ -43,7 +43,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
   ],
   templateUrl: './camera-table.component.html',
-  styleUrl: './camera-table.component.css',
 })
 export class CameraTableComponent implements OnChanges, AfterViewInit {
   @Input() cameras: CameraModel[] = [];
