@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 
-import { CameraSearchEvent } from '../../models/camera.model';
+import { CameraSearchEvent } from '../../../models/camera.model';
 
 @Component({
   selector: 'app-camera-filters',

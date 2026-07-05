@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RentalTable } from '../components/rental-table/rental-table';
+import { NavbarComponent } from '../components/navbar/navbar';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main',
-  imports: [RentalTable],
+  standalone: true,
+  imports: [NavbarComponent, RouterOutlet],
   templateUrl: './main.html',
-  styleUrl: './main.css',
 })
 export class EmployeeMain {}

@@ -1,0 +1,39 @@
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+@Component({
+  selector: 'app-rental-dialog',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  templateUrl: './rental-dialog.html',
+})
+export class RentalDialogComponent {
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<RentalDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    this.form = this.fb.group({
+      startDate: [data?.startDate || ''],
+      endDate: [data?.endDate || ''],
+      status: [data?.status || ''],
+      clientId: [data?.client?.id || null],
+      cameraId: [data?.camera?.id || null],
+      userId: [data?.user?.id || null],
+    });
+  }
+
+  save(): void {
+    this.dialogRef.close(this.form.value);
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+}

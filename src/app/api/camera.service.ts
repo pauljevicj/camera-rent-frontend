@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthCookieService } from '../../auth/auth-cookie.service';
+import { AuthCookieService } from '../auth/auth-cookie.service';
 import { CameraApiResponse } from '../models/camera.model';
 
 @Injectable({

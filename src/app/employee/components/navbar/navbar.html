@@ -1,0 +1,24 @@
+<nav mat-tab-nav-bar [tabPanel]="tabPanel" class="px-6 pt-4">
+  <a
+    mat-tab-link
+    routerLink="/employee-main/rental"
+    routerLinkActive
+    #rlaRental="routerLinkActive"
+    [active]="rlaRental.isActive"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Rental
+  </a>
+
+  <a
+    mat-tab-link
+    routerLink="/employee-main/camera"
+    routerLinkActive
+    #rlaCamera="routerLinkActive"
+    [active]="rlaCamera.isActive"
+  >
+    Camera
+  </a>
+</nav>
+
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>

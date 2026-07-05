@@ -12,6 +12,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { AuthCookieService } from './auth-cookie.service';
+import { JwtService } from './jwt-decode.service';
 
 @Component({
   selector: 'app-auth',
@@ -45,6 +46,7 @@ export class AuthComponent {
     private readonly snackBar: MatSnackBar,
     private readonly router: Router,
     private readonly authCookieService: AuthCookieService,
+    private readonly jwtService: JwtService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.minLength(2)]],
@@ -82,12 +84,27 @@ export class AuthComponent {
     this.authService.login(payload).subscribe({
       next: (response) => {
         this.isSubmitting.set(false);
+
         const token = this.authCookieService.extractToken(response);
+
         if (token) {
           this.authCookieService.setToken(token);
+
+          const roles = this.jwtService.getRoles(token);
+
+          const isEmployee = roles.includes('EMPLOYEE');
+          const isClient = roles.includes('CLIENT');
+
+          this.snackBar.open('Welcome back!', 'Close', { duration: 2500 });
+
+          if (isEmployee) {
+            this.router.navigate(['/employee-main']);
+          } else if (isClient) {
+            this.router.navigate(['/client-main']);
+          } else {
+            this.router.navigate(['/']);
+          }
         }
-        this.snackBar.open('Welcome back! You are now signed in.', 'Close', { duration: 2500 });
-        this.router.navigate(['/employee-main']);
       },
       error: () => {
         this.isSubmitting.set(false);

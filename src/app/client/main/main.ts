@@ -2,9 +2,9 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CameraService } from '../api/camera.service';
+import { CameraService } from '../../api/camera.service';
 import { CameraTableComponent } from '../components/camera-table/camera-table.component';
-import { CameraApiResponse, CameraModel } from '../models/camera.model';
+import { CameraApiResponse, CameraModel } from '../../models/camera.model';
 import { CameraFiltersComponent } from '../components/camera-filters/camera-filters.component';
 
 @Component({
