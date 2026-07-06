@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../api/auth.service';
 import { AuthCookieService } from './auth-cookie.service';
 import { JwtService } from './jwt-decode.service';
 
@@ -56,9 +56,13 @@ export class AuthComponent {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      phoneNumber: ['', [Validators.required]],
+
+      account: this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+      }),
+
+      phoneNumber: ['', Validators.required],
       cityId: [1, [Validators.required, Validators.min(1)]],
       clientTypeId: [1, [Validators.required, Validators.min(1)]],
     });
@@ -121,22 +125,20 @@ export class AuthComponent {
       return;
     }
 
-    const payload = this.registerForm.getRawValue();
-
     this.isSubmitting.set(true);
-    this.authService.register(payload).subscribe({
+
+    this.authService.register(this.registerForm.getRawValue()).subscribe({
       next: () => {
         this.isSubmitting.set(false);
-        this.snackBar.open('Client account created successfully. Please log in.', 'Close', {
+        this.snackBar.open('Account created successfully!', 'Close', {
           duration: 2500,
         });
-        this.selectedTab.set('login');
-        this.registerForm.reset({ cityId: 1, clientTypeId: 1 });
-        this.router.navigate(['/main']);
       },
       error: () => {
         this.isSubmitting.set(false);
-        this.snackBar.open('Registration failed. Please try again.', 'Close', { duration: 3000 });
+        this.snackBar.open('Registration failed. Please try again.', 'Close', {
+          duration: 3000,
+        });
       },
     });
   }
