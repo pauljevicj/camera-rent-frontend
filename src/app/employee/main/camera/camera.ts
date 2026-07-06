@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CameraService } from '../../../api/camera.service';
 import { CameraApiResponse } from '../../../models/camera.model';
@@ -20,6 +20,7 @@ export class CameraComponent implements OnInit {
   constructor(
     private cameraService: CameraService,
     private dialog: MatDialog,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -28,9 +29,9 @@ export class CameraComponent implements OnInit {
 
   load() {
     this.cameraService.getAll().subscribe((data) => {
-      console.log('PARENT:', data);
-
       this.cameras = data;
+
+      this.cd.detectChanges();
     });
   }
   openCreate() {

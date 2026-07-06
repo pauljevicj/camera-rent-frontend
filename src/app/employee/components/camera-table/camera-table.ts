@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { CameraApiResponse } from '../../../models/camera.model';
@@ -12,22 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './camera-table.html',
 })
 export class CameraTableComponent {
-  private _cameras: CameraApiResponse[] = [];
-
-  @Input()
-  set cameras(value: CameraApiResponse[]) {
-    this._cameras = value;
-    this.camerasForTable = [...value];
-    this.cd.detectChanges();
-  }
-
-  get cameras() {
-    return this._cameras;
-  }
-
-  camerasForTable: CameraApiResponse[] = [];
+  @Input() cameras: CameraApiResponse[] = [];
 
   displayedColumns = ['camera', 'condition', 'price', 'year', 'status', 'actions'];
-
-  constructor(private cd: ChangeDetectorRef) {}
 }
