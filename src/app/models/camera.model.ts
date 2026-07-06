@@ -1,13 +1,13 @@
 export interface CameraApiResponse {
-  id?: number;
-  status?: string;
-  pricePerDay?: number;
-  cameraCondition?: string;
-  year?: number;
-  cameraModel?: {
-    id?: number;
-    brand?: string;
-    model?: string;
+  id: number;
+  status: string;
+  pricePerDay: number;
+  cameraCondition: string;
+  year: number;
+  cameraModel: {
+    id: number;
+    brand: string;
+    model: string;
   };
 }
 
@@ -25,4 +25,12 @@ export interface CameraModel {
 export interface CameraSearchEvent {
   start: Date;
   end: Date;
+}
+
+export interface CameraRequest {
+  status: string;
+  pricePerDay: number;
+  cameraCondition: string;
+  year: number;
+  cameraModelId: number;
 }

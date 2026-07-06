@@ -3,7 +3,7 @@ import { AuthComponent } from './auth/auth.component';
 import { EmployeeMain } from './employee/main/main';
 import { ClientMain } from './client/main/main';
 import { RentalPageComponent } from './employee/main/rental/rental';
-import { CameraPageComponent } from './employee/main/camera/camera';
+import { CameraComponent } from './employee/main/camera/camera';
 
 export const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -22,7 +22,7 @@ export const routes: Routes = [
       },
       {
         path: 'camera',
-        component: CameraPageComponent,
+        component: CameraComponent,
       },
     ],
   },

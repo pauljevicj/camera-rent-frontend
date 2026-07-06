@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Camera</h2>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <input matInput formControlName="status" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Price per day</mat-label>
+    <input matInput type="number" formControlName="pricePerDay" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Condition</mat-label>
+    <input matInput formControlName="cameraCondition" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Year</mat-label>
+    <input matInput type="number" formControlName="year" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Camera model id</mat-label>
+    <input matInput type="number" formControlName="cameraModelId" />
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+
+  <button mat-flat-button color="primary" (click)="save()">Save</button>
+</div>
