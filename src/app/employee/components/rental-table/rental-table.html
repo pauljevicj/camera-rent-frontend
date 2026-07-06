@@ -2,7 +2,7 @@
   class="bg-white rounded-xl shadow-sm border border-slate-200 px-2"
   (selectedIndexChange)="onTabChange($event)"
 >
-  <mat-tab label="Approved"></mat-tab>
+  <mat-tab label="Processed"></mat-tab>
   <mat-tab label="Open Approvals"></mat-tab>
 </mat-tab-group>
 
@@ -52,8 +52,10 @@
         <span
           class="px-3 py-1 text-xs font-medium rounded-full"
           [ngClass]="{
-            'bg-green-100 text-green-700': rental.status === 'APPROVED',
+            'bg-green-100 text-green-700': rental.status === 'PROCESSED',
             'bg-yellow-100 text-yellow-700': rental.status === 'PENDING',
+            'bg-blue-100 text-blue-700': rental.status === 'RETURNED',
+            'bg-red-100 text-red-700': rental.status === 'EXPIRED',
           }"
         >
           {{ rental.status }}
@@ -80,7 +82,7 @@
 
         <!-- If approved → EDIT -->
         <button
-          *ngIf="rental.status === 'APPROVED'"
+          *ngIf="rental.status === 'PROCESSED'"
           mat-stroked-button
           color="primary"
           (click)="editRental(rental)"

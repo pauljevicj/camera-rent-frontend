@@ -20,7 +20,7 @@ export class RentalTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource<RentalApiResponse>([]);
 
-  selectedTab: 'APPROVED' | 'PENDING' = 'APPROVED';
+  selectedTab: 'PROCESSED' | 'PENDING' = 'PROCESSED';
 
   constructor(
     private rentalService: RentalService,
@@ -32,17 +32,26 @@ export class RentalTableComponent implements OnInit {
   }
 
   loadRentals(): void {
-    this.rentalService.getByStatus(this.selectedTab).subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-      error: (err) => console.error(err),
-    });
+    if (this.selectedTab === 'PENDING') {
+      this.rentalService.getByStatus(this.selectedTab).subscribe({
+        next: (data) => {
+          this.dataSource.data = data;
+        },
+        error: (err) => console.error(err),
+      });
+    } else {
+      this.rentalService.getProcessed().subscribe({
+        next: (data) => {
+          this.dataSource.data = data;
+        },
+        error: (err) => console.error(err),
+      });
+    }
   }
 
   onTabChange(index: number): void {
-    this.selectedTab = index === 0 ? 'APPROVED' : 'PENDING';
-    this.loadRentals(); // IMPORTANT
+    this.selectedTab = index === 0 ? 'PROCESSED' : 'PENDING';
+    this.loadRentals();
   }
 
   deleteRental(id: number): void {

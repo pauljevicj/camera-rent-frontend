@@ -83,4 +83,15 @@ export class RentalService {
       withCredentials: true,
     });
   }
+
+  getProcessed(): Observable<RentalApiResponse[]> {
+    const token = this.authCookieService.getToken();
+
+    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
+
+    return this.http.get<RentalApiResponse[]>(`${this.apiUrl}/processed`, {
+      headers,
+      withCredentials: true,
+    });
+  }
 }
