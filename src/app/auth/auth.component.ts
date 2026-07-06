@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../api/auth.service';
 import { AuthCookieService } from './auth-cookie.service';
 import { JwtService } from './jwt-decode.service';
+import { MatSelectModule } from '@angular/material/select';
+import { City } from '../models/city.model';
+import { CityService } from '../api/city.service';
 
 @Component({
   selector: 'app-auth',
@@ -28,11 +31,12 @@ import { JwtService } from './jwt-decode.service';
     MatIconModule,
     MatSnackBarModule,
     MatButtonToggleModule,
+    MatSelectModule,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css',
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   public readonly selectedTab = signal<'login' | 'register'>('login');
   public readonly selectedRole = signal<'client' | 'employee'>('client');
   public readonly isSubmitting = signal(false);
@@ -47,6 +51,7 @@ export class AuthComponent {
     private readonly router: Router,
     private readonly authCookieService: AuthCookieService,
     private readonly jwtService: JwtService,
+    private readonly cityService: CityService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.minLength(2)]],
@@ -64,7 +69,14 @@ export class AuthComponent {
 
       phoneNumber: ['', Validators.required],
       cityId: [1, [Validators.required, Validators.min(1)]],
-      clientTypeId: [1, [Validators.required, Validators.min(1)]],
+    });
+  }
+
+  cities: City[] = [];
+
+  ngOnInit(): void {
+    this.cityService.getAll().subscribe({
+      next: (cities) => (this.cities = cities),
     });
   }
 
