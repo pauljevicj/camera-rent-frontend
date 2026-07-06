@@ -3,9 +3,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'employee-navbar',
   standalone: true,
   imports: [MatTabsModule, RouterModule],
   templateUrl: './navbar.html',
 })
-export class NavbarComponent {}
+export class EmployeeNavbarComponent {}

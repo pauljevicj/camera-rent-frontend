@@ -6,6 +6,7 @@ import { CameraService } from '../../api/camera.service';
 import { CameraTableComponent } from '../components/camera-table/camera-table.component';
 import { CameraApiResponse, CameraModel } from '../../models/camera.model';
 import { CameraFiltersComponent } from '../components/camera-filters/camera-filters.component';
+import { NavbarComponent } from '../../components/navbar/navbar';
 
 @Component({
   selector: 'app-main',
@@ -15,6 +16,7 @@ import { CameraFiltersComponent } from '../components/camera-filters/camera-filt
     MatIconModule,
     CameraTableComponent,
     CameraFiltersComponent,
+    NavbarComponent,
   ],
   templateUrl: './main.html',
   styleUrl: './main.css',
@@ -32,13 +34,10 @@ export class ClientMain {
   ) {}
 
   onSearch(event: { start: Date; end: Date }): void {
-    // this.isLoading = true;
-
     this.cameraService.getAvailable(this.format(event.start), this.format(event.end)).subscribe({
       next: (res) => {
         this.cameras = this.mapCameras(res ?? []);
         this.cdr.detectChanges();
-        this.isLoading = false;
       },
       error: () => (this.isLoading = false),
     });
