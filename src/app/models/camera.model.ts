@@ -17,7 +17,6 @@ export interface CameraModel {
   brand: string;
   model: string;
   pricePerDay: number;
-  status: 'AVAILABLE' | 'TAKEN' | 'UNKNOWN';
   condition: string;
   year: number | null;
 }

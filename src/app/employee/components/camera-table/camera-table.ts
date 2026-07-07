@@ -17,5 +17,5 @@ export class CameraTableComponent {
   @Output() editCamera = new EventEmitter<CameraApiResponse>();
   @Output() deleteCamera = new EventEmitter<number>();
 
-  displayedColumns = ['camera', 'condition', 'price', 'year', 'status', 'actions'];
+  displayedColumns = ['camera', 'condition', 'price', 'year', 'actions'];
 }

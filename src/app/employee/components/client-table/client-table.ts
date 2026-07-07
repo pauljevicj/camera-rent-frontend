@@ -19,7 +19,7 @@ export class ClientTableComponent {
   editClient = new EventEmitter<ClientApiResponse>();
 
   @Output()
-  deleteClient = new EventEmitter<ClientApiResponse>();
+  deleteClient = new EventEmitter<number>();
 
   displayedColumns = ['name', 'email', 'phone', 'city', 'status', 'actions'];
 
@@ -27,7 +27,7 @@ export class ClientTableComponent {
     this.editClient.emit(client);
   }
 
-  delete(client: ClientApiResponse) {
-    this.deleteClient.emit(client);
+  delete(id: number) {
+    this.deleteClient.emit(id);
   }
 }

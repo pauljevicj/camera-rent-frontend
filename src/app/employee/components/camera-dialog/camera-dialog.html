@@ -3,13 +3,14 @@
 </h2>
 
 <mat-dialog-content class="!p-0">
-  <form [formGroup]="form" class="flex flex-col gap-4 px-6">
+  <form [formGroup]="form" class="flex flex-col gap-4 px-6 py-4">
     <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="status">
-        <mat-option value="AVAILABLE">Available</mat-option>
-        <mat-option value="RENTED">Rented</mat-option>
-        <mat-option value="DAMAGED">Damaged</mat-option>
+      <mat-label>Brand & Model</mat-label>
+
+      <mat-select formControlName="cameraModelId">
+        <mat-option *ngFor="let model of cameraModels" [value]="model.id">
+          {{ model.brand }} {{ model.model }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -26,18 +27,9 @@
       </mat-form-field>
     </div>
 
-    <mat-form-field appearance="outline" class="w-full">
+    <mat-form-field appearance="outline">
       <mat-label>Condition</mat-label>
-      <mat-select formControlName="cameraCondition">
-        <mat-option value="GOOD">Good</mat-option>
-        <mat-option value="BAD">Bad</mat-option>
-        <mat-option value="DAMAGED">Damaged</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Camera model ID</mat-label>
-      <input matInput type="number" formControlName="cameraModelId" />
+      <input matInput type="string" formControlName="cameraCondition" />
     </mat-form-field>
   </form>
 </mat-dialog-content>

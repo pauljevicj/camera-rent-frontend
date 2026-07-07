@@ -52,12 +52,12 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  delete(client: ClientApiResponse): void {
-    if (!confirm(`Delete ${client.name} ${client.surname}?`)) {
+  delete(id: number): void {
+    if (!confirm(`Are you sure you want to delete this client?`)) {
       return;
     }
 
-    this.clientService.delete(client.id).subscribe(() => {
+    this.clientService.delete(id).subscribe(() => {
       this.load();
     });
   }

@@ -62,13 +62,7 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
 
   dataSource = new MatTableDataSource<CameraModel>([]);
 
-  displayedColumns: string[] = ['name', 'brand', 'condition', 'price', 'status', 'actions'];
-
-  readonly statusConfig = {
-    AVAILABLE: { label: 'Available', class: '!bg-emerald-100 !text-emerald-700' },
-    TAKEN: { label: 'Taken', class: '!bg-amber-100 !text-amber-700' },
-    UNKNOWN: { label: 'Unknown', class: '!bg-slate-100 !text-slate-700' },
-  } as const;
+  displayedColumns: string[] = ['name', 'brand', 'condition', 'price', 'actions'];
 
   ngOnChanges(): void {
     this.dataSource.data = this.cameras ?? [];
@@ -79,19 +73,10 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
     this.dataSource.sort = this.sort ?? null;
   }
 
-  getStatusLabel(status: CameraModel['status']) {
-    return this.statusConfig[status]?.label ?? 'Unknown';
-  }
-
-  getStatusClass(status: CameraModel['status']) {
-    return this.statusConfig[status]?.class ?? '!bg-slate-100';
-  }
-
   reserve(camera: CameraModel) {
     const payload = {
       startDate: this.startDate,
       endDate: this.endDate,
-      status: 'PENDING',
       cameraId: camera.id,
     };
 
