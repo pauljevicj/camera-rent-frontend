@@ -1,14 +1,18 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { ClientApiResponse } from '../../../models/client.model';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
+import { ClientApiResponse } from '../../../models/client.model';
+import { City } from '../../../models/city.model';
+import { CityService } from '../../../api/city.service';
+import { CommonModule } from '@angular/common';
+
 @Component({
-  selector: 'app-camera-dialog',
+  selector: 'app-client-dialog',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -17,37 +21,49 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    CommonModule,
   ],
   templateUrl: './client-dialog.html',
 })
-export class ClientDialogComponent {
+export class ClientDialogComponent implements OnInit {
   form: FormGroup;
+
+  cities: City[] = [];
 
   constructor(
     private fb: FormBuilder,
     private ref: MatDialogRef<ClientDialogComponent>,
+    private cityService: CityService,
     @Inject(MAT_DIALOG_DATA) public data: ClientApiResponse,
   ) {
     this.form = this.fb.group({
-      status: ['AVAILABLE', Validators.required],
-      pricePerDay: [0, Validators.required],
-      cameraCondition: ['GOOD', Validators.required],
-      year: [2026, Validators.required],
-      cameraModelId: [1, Validators.required],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', Validators.required],
+      cityId: [null, Validators.required],
+      clientType: ['', Validators.required],
     });
 
-    // if (data) {
-    //   this.form.patchValue({
-    //     status: data.status,
-    //     pricePerDay: data.pricePerDay,
-    //     cameraCondition: data.cameraCondition,
-    //     year: data.year,
-    //     cameraModelId: data.cameraModel.id,
-    //   });
-    // }
+    if (data) {
+      this.form.patchValue({
+        name: data.name,
+        surname: data.surname,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        cityId: data.city.id,
+        clientType: data.clientType,
+      });
+    }
   }
 
-  save() {
+  ngOnInit(): void {
+    this.cityService.getAll().subscribe({
+      next: (cities) => (this.cities = cities),
+    });
+  }
+
+  save(): void {
     if (this.form.invalid) {
       return;
     }
@@ -55,7 +71,7 @@ export class ClientDialogComponent {
     this.ref.close(this.form.value);
   }
 
-  close() {
+  close(): void {
     this.ref.close();
   }
 }

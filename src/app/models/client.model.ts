@@ -10,3 +10,12 @@ export interface ClientApiResponse {
   };
   clientType: string;
 }
+
+export interface ClientUpdateApiRequest {
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  cityId: number;
+  clientType: string;
+}

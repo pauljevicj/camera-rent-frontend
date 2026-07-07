@@ -3,41 +3,44 @@
 </h2>
 
 <mat-dialog-content class="!p-0">
-  <form [formGroup]="form" class="flex flex-col gap-4 px-6">
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="status">
-        <mat-option value="AVAILABLE">Available</mat-option>
-        <mat-option value="RENTED">Rented</mat-option>
-        <mat-option value="DAMAGED">Damaged</mat-option>
-      </mat-select>
+  <form [formGroup]="form" class="flex flex-col gap-4 px-6 py-4">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput type="string" formControlName="name" />
     </mat-form-field>
 
-    <div class="grid grid-cols-2 gap-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Price per day</mat-label>
-        <input matInput type="number" formControlName="pricePerDay" />
-        <span matTextSuffix>€</span>
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Surname</mat-label>
+      <input matInput type="string" formControlName="surname" />
+    </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Year</mat-label>
-        <input matInput type="number" formControlName="year" />
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="string" formControlName="email" />
+    </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Condition</mat-label>
-      <mat-select formControlName="cameraCondition">
-        <mat-option value="GOOD">Good</mat-option>
-        <mat-option value="BAD">Bad</mat-option>
-        <mat-option value="DAMAGED">Damaged</mat-option>
-      </mat-select>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput type="number" formControlName="phoneNumber" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Camera model ID</mat-label>
-      <input matInput type="number" formControlName="cameraModelId" />
+      <mat-label>City</mat-label>
+
+      <mat-select formControlName="cityId">
+        <mat-option *ngFor="let city of cities" [value]="city.id">
+          {{ city.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="clientType">
+        <mat-option value="STANDARD">STANDARD</mat-option>
+        <mat-option value="GOLD">GOLD</mat-option>
+        <mat-option value="PLATINUM">PLATINUM</mat-option>
+      </mat-select>
     </mat-form-field>
   </form>
 </mat-dialog-content>

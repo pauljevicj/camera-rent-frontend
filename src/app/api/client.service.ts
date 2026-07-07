@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthCookieService } from '../auth/auth-cookie.service';
-import { ClientApiResponse } from '../models/client.model';
+import { ClientApiResponse, ClientUpdateApiRequest } from '../models/client.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class ClientService {
     return this.http.get<ClientApiResponse[]>(this.apiUrl, { headers, withCredentials: true });
   }
 
-  update(id: number, payload: ClientApiResponse): Observable<ClientApiResponse> {
+  update(id: number, payload: ClientUpdateApiRequest): Observable<ClientApiResponse> {
     const headers = this.getHeaders();
 
     return this.http.put<ClientApiResponse>(`${this.apiUrl}/${id}`, payload, {
