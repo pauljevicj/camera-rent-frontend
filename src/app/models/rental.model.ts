@@ -19,14 +19,12 @@ export interface RentalApiResponse {
       name?: string;
     };
   };
-
-  user?: {
+  employee?: {
     id?: number;
     name?: string;
     surname?: string;
     email?: string | null;
   };
-
   camera?: {
     id?: number;
     status?: string;
