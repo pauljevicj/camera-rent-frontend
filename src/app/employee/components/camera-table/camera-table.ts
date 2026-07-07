@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { CameraApiResponse } from '../../../models/camera.model';
@@ -13,6 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CameraTableComponent {
   @Input() cameras: CameraApiResponse[] = [];
+
+  @Output() editCamera = new EventEmitter<CameraApiResponse>();
+  @Output() deleteCamera = new EventEmitter<number>();
 
   displayedColumns = ['camera', 'condition', 'price', 'year', 'status', 'actions'];
 }

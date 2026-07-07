@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CameraService } from '../../../api/camera.service';
 import { CameraApiResponse } from '../../../models/camera.model';
@@ -37,6 +37,7 @@ export class CameraComponent implements OnInit {
   openCreate() {
     const dialogRef = this.dialog.open(CameraDialogComponent, {
       width: '450px',
+      disableClose: false,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -46,5 +47,28 @@ export class CameraComponent implements OnInit {
         });
       }
     });
+  }
+
+  edit(camera: CameraApiResponse) {
+    const dialogRef = this.dialog.open(CameraDialogComponent, {
+      width: '450px',
+      data: camera,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.cameraService.update(camera.id!, result).subscribe(() => {
+          this.load();
+        });
+      }
+    });
+  }
+
+  remove(id: number) {
+    if (confirm('Delete camera?')) {
+      this.cameraService.delete(id).subscribe(() => {
+        this.load();
+      });
+    }
   }
 }

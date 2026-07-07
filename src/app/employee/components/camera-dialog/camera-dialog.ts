@@ -1,11 +1,23 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { CameraApiResponse } from '../../../models/camera.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-camera-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
   templateUrl: './camera-dialog.html',
 })
 export class CameraDialogComponent {
@@ -14,7 +26,7 @@ export class CameraDialogComponent {
   constructor(
     private fb: FormBuilder,
     private ref: MatDialogRef<CameraDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: any,
+    @Inject(MAT_DIALOG_DATA) public data: CameraApiResponse,
   ) {
     this.form = this.fb.group({
       status: ['AVAILABLE', Validators.required],
@@ -36,6 +48,14 @@ export class CameraDialogComponent {
   }
 
   save() {
+    if (this.form.invalid) {
+      return;
+    }
+
     this.ref.close(this.form.value);
+  }
+
+  close() {
+    this.ref.close();
   }
 }

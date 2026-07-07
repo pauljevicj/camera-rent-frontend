@@ -5,5 +5,6 @@
     <button mat-flat-button color="primary" (click)="openCreate()">Add camera</button>
   </div>
 
-  <app-camera-table [cameras]="cameras"> </app-camera-table>
+  <app-camera-table [cameras]="cameras" (editCamera)="edit($event)" (deleteCamera)="remove($event)">
+  </app-camera-table>
 </div>
