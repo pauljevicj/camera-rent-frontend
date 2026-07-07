@@ -7,11 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { RentalService } from '../../../api/rental.service';
 import { RentalApiResponse } from '../../../models/rental.model';
 import { RentalDialogComponent } from '../rental-dialog/rental-dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-rental-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatTabsModule],
+  imports: [CommonModule, MatTableModule, MatTabsModule, MatButtonModule],
   templateUrl: './rental-table.html',
   styleUrl: './rental-table.css',
 })
