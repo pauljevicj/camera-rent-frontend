@@ -16,7 +16,13 @@
       <div class="mx-auto max-w-7xl">
         <app-camera-filters (valueSearch)="onSearch($event)"> </app-camera-filters>
 
-        <app-camera-table [cameras]="cameras" [isLoading]="isLoading"> </app-camera-table>
+        <app-camera-table
+          [cameras]="cameras"
+          [isLoading]="isLoading"
+          [startDate]="startDate"
+          [endDate]="endDate"
+        >
+        </app-camera-table>
       </div>
     </section>
   </div>

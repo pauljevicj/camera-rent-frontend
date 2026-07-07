@@ -22,6 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
+import { RentalService } from '../../../api/rental.service';
+import { JwtService } from '../../../auth/jwt-decode.service';
 
 @Component({
   selector: 'app-camera-table',
@@ -47,6 +49,13 @@ import { FormsModule } from '@angular/forms';
 export class CameraTableComponent implements OnChanges, AfterViewInit {
   @Input() cameras: CameraModel[] = [];
   @Input() isLoading = false;
+  @Input() startDate!: string;
+  @Input() endDate!: string;
+
+  constructor(
+    private readonly rentalService: RentalService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
@@ -76,5 +85,20 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
 
   getStatusClass(status: CameraModel['status']) {
     return this.statusConfig[status]?.class ?? '!bg-slate-100';
+  }
+
+  reserve(camera: CameraModel) {
+    const payload = {
+      startDate: this.startDate,
+      endDate: this.endDate,
+      status: 'PENDING',
+      clientId: 3,
+      cameraId: camera.id,
+    };
+
+    this.rentalService.createRental(payload).subscribe({
+      next: () => alert('Reserved!'),
+      error: (err) => console.log(err),
+    });
   }
 }

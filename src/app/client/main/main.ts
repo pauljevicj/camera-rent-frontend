@@ -25,8 +25,8 @@ export class ClientMain {
   cameras: CameraModel[] = [];
   isLoading = false;
 
-  startDate?: Date;
-  endDate?: Date;
+  startDate = '';
+  endDate = '';
 
   constructor(
     private cameraService: CameraService,
@@ -34,6 +34,9 @@ export class ClientMain {
   ) {}
 
   onSearch(event: { start: Date; end: Date }): void {
+    this.startDate = this.format(event.start);
+    this.endDate = this.format(event.end);
+
     this.cameraService.getAvailable(this.format(event.start), this.format(event.end)).subscribe({
       next: (res) => {
         this.cameras = this.mapCameras(res ?? []);

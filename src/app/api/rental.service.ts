@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthCookieService } from '../auth/auth-cookie.service';
-import { RentalApiResponse } from '../models/rental.model';
+import { RentalApiResponse, RentalRequest } from '../models/rental.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,12 +26,16 @@ export class RentalService {
     });
   }
 
-  create(rental: any) {
+  createRental(payload: any): Observable<RentalApiResponse> {
     const token = this.authCookieService.getToken();
 
-    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
+    const headers = token
+      ? new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        })
+      : undefined;
 
-    return this.http.post(this.apiUrl, rental, {
+    return this.http.post<RentalApiResponse>(this.apiUrl, payload, {
       headers,
       withCredentials: true,
     });

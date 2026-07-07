@@ -40,3 +40,12 @@ export interface RentalApiResponse {
     };
   };
 }
+
+export interface RentalRequest {
+  startDate: string;
+  endDate: string;
+  status: string;
+  clientId: number;
+  userId: number;
+  cameraId: number;
+}
