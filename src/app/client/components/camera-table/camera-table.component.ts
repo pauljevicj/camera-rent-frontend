@@ -92,7 +92,6 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
       startDate: this.startDate,
       endDate: this.endDate,
       status: 'PENDING',
-      clientId: 3,
       cameraId: camera.id,
     };
 
