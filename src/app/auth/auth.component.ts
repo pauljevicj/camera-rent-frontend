@@ -146,9 +146,12 @@ export class AuthComponent implements OnInit {
           duration: 2500,
         });
       },
-      error: () => {
+      error: (err) => {
         this.isSubmitting.set(false);
-        this.snackBar.open('Registration failed. Please try again.', 'Close', {
+
+        console.log(err);
+
+        this.snackBar.open(err.error || 'Registration failed', 'Close', {
           duration: 3000,
         });
       },
