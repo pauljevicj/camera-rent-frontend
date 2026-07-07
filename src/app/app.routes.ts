@@ -6,6 +6,7 @@ import { RentalPageComponent } from './employee/main/rental/rental';
 import { CameraComponent } from './employee/main/camera/camera';
 import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
+import { ClientComponent } from './employee/main/client/client';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
       {
         path: 'camera',
         component: CameraComponent,
+      },
+      {
+        path: 'client',
+        component: ClientComponent,
       },
     ],
   },

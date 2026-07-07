@@ -19,6 +19,16 @@
   >
     Camera
   </a>
+
+  <a
+    mat-tab-link
+    routerLink="/employee-main/client"
+    routerLinkActive
+    #rlaCamera="routerLinkActive"
+    [active]="rlaCamera.isActive"
+  >
+    Client
+  </a>
 </nav>
 
 <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
