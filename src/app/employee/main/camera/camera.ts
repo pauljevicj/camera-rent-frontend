@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CameraService } from '../../../api/camera.service';
 import { CameraApiResponse } from '../../../models/camera.model';
