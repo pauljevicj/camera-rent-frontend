@@ -24,7 +24,6 @@ export class CameraService {
 
   getAvailable(start: string, end: string): Observable<CameraApiResponse[]> {
     const token = this.authCookieService.getToken();
-
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
 
     return this.http.get<CameraApiResponse[]>(`${this.apiUrl}/available`, {

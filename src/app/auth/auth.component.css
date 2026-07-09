@@ -9,3 +9,11 @@
 ::ng-deep .mat-mdc-tab .mdc-tab__text-label {
   font-weight: 600;
 }
+
+.login-background {
+  min-height: 100vh;
+  background-image: url('/assets/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

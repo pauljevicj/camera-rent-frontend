@@ -84,10 +84,6 @@ export class AuthComponent implements OnInit {
     this.selectedTab.set(tab);
   }
 
-  selectRole(role: 'client' | 'employee'): void {
-    this.selectedRole.set(role);
-  }
-
   submitLogin(): void {
     const payload = this.loginForm.getRawValue();
 

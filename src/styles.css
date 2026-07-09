@@ -6,6 +6,12 @@ body {
   font-family: Inter, 'Segoe UI', Roboto, sans-serif;
   background: #f8fafc;
   color: #0f172a;
+  min-height: 100vh;
+  background-image: url('assets/images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 html,
