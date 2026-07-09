@@ -2,33 +2,30 @@
   <div class="mx-auto grid min-h-screen max-w-7xl items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
     <div class="max-w-2xl px-2 py-6 sm:px-4 lg:px-0">
       <div
-        class="mb-6 inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-600 shadow-sm"
+        class="mb-6 inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-[#704936] shadow-sm"
       >
-        CameraRent
+        Camera Rent
       </div>
 
-      <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl text-slate-900">
-        Rent gear. Shoot faster.
+      <h1 class="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl text-[#704936]">
+        Rent premium gear.
       </h1>
 
-      <p class="mb-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-        Access your camera rental account and get ready for your next production with premium gear
+      <p class="mb-6 max-w-xl text-base leading-7 text-[#92644f] sm:text-lg">
+        Access your camera rental account <br> and get ready for your next production <br> with premium gear
         and fast pickup.
       </p>
 
-      <ul class="space-y-3 text-sm text-slate-700 sm:text-base">
+      <ul class="space-y-3 text-sm text-[#92644f] sm:text-base">
         <li class="flex items-center gap-3">
-          <!-- <mat-icon class="text-slate-500">photo_camera</mat-icon> -->
           Premium mirrorless and cinema kits
         </li>
 
         <li class="flex items-center gap-3">
-          <!-- <mat-icon class="text-slate-500">schedule</mat-icon> -->
           Fast pickup and flexible returns
         </li>
 
         <li class="flex items-center gap-3">
-          <!-- <mat-icon class="text-slate-500">verified_user</mat-icon> -->
           Secure account access
         </li>
       </ul>
@@ -71,7 +68,7 @@
               color="primary"
               type="submit"
               [disabled]="isSubmitting()"
-              class="h-12 rounded-full"
+              class="h-12 rounded-full custom-brown-btn"
             >
               {{ isSubmitting() ? 'Signing in...' : 'Sign in' }}
             </button>
@@ -156,7 +153,7 @@
               color="primary"
               type="submit"
               [disabled]="isSubmitting()"
-              class="h-12 rounded-full"
+              class="h-12 rounded-full custom-brown-btn"
             >
               {{ isSubmitting() ? 'Creating account...' : 'Create account' }}
             </button>
