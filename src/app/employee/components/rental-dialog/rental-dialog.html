@@ -6,12 +6,24 @@
   <form [formGroup]="form" class="flex flex-col gap-4 p-3">
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Start Date</mat-label>
-      <input matInput type="date" formControlName="startDate" />
+
+      <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="startPicker" style="color: #8b5e3c">
+      </mat-datepicker-toggle>
+
+      <mat-datepicker #startPicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>End Date</mat-label>
-      <input matInput type="date" formControlName="endDate" />
+
+      <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="endPicker" style="color: #8b5e3c">
+      </mat-datepicker-toggle>
+
+      <mat-datepicker #endPicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full">
@@ -29,10 +41,10 @@
 <mat-dialog-actions class="!px-6 !py-4 !mt-4 flex justify-end gap-3">
   <button mat-stroked-button type="button" (click)="close()">Cancel</button>
 
-  <button 
-    mat-flat-button 
-    [style.background-color]="'#8B5E3C'" 
-    [style.color]="'#ffffff'" 
+  <button
+    mat-flat-button
+    [style.background-color]="'#8B5E3C'"
+    [style.color]="'#ffffff'"
     (click)="save()"
   >
     Save
