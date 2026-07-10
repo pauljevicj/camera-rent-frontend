@@ -57,8 +57,17 @@ export class ClientComponent implements OnInit {
       return;
     }
 
-    this.clientService.delete(id).subscribe(() => {
-      this.load();
+    this.clientService.delete(id).subscribe({
+      next: () => {
+        this.load();
+      },
+      error: (err) => {
+        if (err.error.code === 'REFERENCED_ENTITY') {
+          alert('This client cannot be deleted because they are associated with existing rentals.');
+        } else {
+          alert('Something went wrong while deleting the client.');
+        }
+      },
     });
   }
 }

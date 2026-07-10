@@ -66,8 +66,17 @@ export class CameraComponent implements OnInit {
 
   remove(id: number) {
     if (confirm('Delete camera?')) {
-      this.cameraService.delete(id).subscribe(() => {
-        this.load();
+      this.cameraService.delete(id).subscribe({
+        next: () => {
+          this.load();
+        },
+        error: (err) => {
+          if (err.error.code === 'REFERENCED_ENTITY') {
+            alert('This camera cannot be deleted because it is currently used in rentals.');
+          } else {
+            alert('Something went wrong while deleting the camera.');
+          }
+        },
       });
     }
   }
