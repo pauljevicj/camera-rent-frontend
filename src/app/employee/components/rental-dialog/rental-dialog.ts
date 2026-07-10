@@ -6,11 +6,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-rental-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatSelectModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatSelectModule, MatDialogModule, MatButtonModule, 
+  MatNativeDateModule, MatDatepickerModule, MatIconModule ],
   templateUrl: './rental-dialog.html',
 })
 export class RentalDialogComponent {
@@ -22,8 +26,8 @@ export class RentalDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.form = this.fb.group({
-      startDate: [data?.startDate || ''],
-      endDate: [data?.endDate || ''],
+      startDate: [data?.startDate ? new Date(data.startDate) : null],
+      endDate: [data?.endDate ? new Date(data.endDate) : null],
       status: [data?.status || ''],
       clientId: [data?.client?.id || null],
       cameraId: [data?.camera?.id || null],
