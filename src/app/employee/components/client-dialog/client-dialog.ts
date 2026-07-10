@@ -37,10 +37,10 @@ export class ClientDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ClientApiResponse,
   ) {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
+      name: ['', [Validators.required,Validators.pattern('^[a-zA-Z]+$')]],
+      surname: ['', [Validators.required,Validators.pattern('^[a-zA-Z]+$')]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       cityId: [null, Validators.required],
       clientType: ['', Validators.required],
     });

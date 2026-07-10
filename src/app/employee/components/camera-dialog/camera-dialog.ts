@@ -36,9 +36,9 @@ export class CameraDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CameraApiResponse,
   ) {
     this.form = this.fb.group({
-      pricePerDay: [0, Validators.required],
+      pricePerDay: [0, [Validators.required, Validators.min(0)]],
       cameraCondition: ['GOOD', Validators.required],
-      year: [2026, Validators.required],
+      year: [2026, [Validators.required, Validators.min(1900), Validators.max(new Date().getFullYear())]],
       cameraModelId: [null, Validators.required],
     });
 
