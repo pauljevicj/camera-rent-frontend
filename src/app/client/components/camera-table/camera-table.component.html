@@ -3,7 +3,6 @@
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h2 class="text-xl font-semibold text-slate-900">Available cameras</h2>
-        <p class="text-sm text-slate-600">A clean table view aligned with the rest of the app.</p>
       </div>
       <div class="flex items-center gap-2 text-sm text-slate-500">
         <mat-icon class="text-base">photo_camera</mat-icon>
@@ -51,7 +50,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let camera">
-          <button mat-flat-button color="primary" (click)="reserve(camera)">Reserve</button>
+          <button mat-flat-button style="background-color: #8B5E3C; color: white;" (click)="reserve(camera)">Reserve</button>
         </td>
       </ng-container>
 

@@ -73,16 +73,16 @@
         <button
           *ngIf="rental.status === 'PENDING'"
           mat-stroked-button
-          color="primary"
+          [style.color]="'#8B5E3C'"
           (click)="approveRental(rental.id)"
         >
           Approve
         </button>
 
         <button
-          *ngIf="rental.status === 'PROCESSED'"
+          *ngIf="rental.status !== 'PENDING'"
           mat-stroked-button
-          color="primary"
+          [style.color]="'#8B5E3C'"
           (click)="editRental(rental)"
         >
           Edit

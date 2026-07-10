@@ -7,5 +7,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [MatTabsModule, RouterModule],
   templateUrl: './navbar.html',
+  styleUrl: './navbar.css'
 })
 export class EmployeeNavbarComponent {}

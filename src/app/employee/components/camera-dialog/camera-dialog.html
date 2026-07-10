@@ -37,7 +37,8 @@
 <mat-dialog-actions class="!px-6 !py-4 !mt-4 flex justify-end gap-3">
   <button mat-stroked-button type="button" (click)="close()">Cancel</button>
 
-  <button mat-flat-button color="primary" type="button" (click)="save()" [disabled]="form.invalid">
+  <button mat-flat-button [style.background-color]="'#8B5E3C'" 
+  [style.color]="'#ffffff'" type="button" (click)="save()" [disabled]="form.invalid">
     {{ data ? 'Save changes' : 'Create camera' }}
   </button>
 </mat-dialog-actions>

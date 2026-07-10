@@ -51,6 +51,7 @@ export class RentalService {
       withCredentials: true,
     });
   }
+  
   delete(id: number) {
     const token = this.authCookieService.getToken();
 

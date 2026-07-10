@@ -68,12 +68,12 @@
     <!-- Actions -->
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold text-right">
+      <th mat-header-cell *matHeaderCellDef  class="text-slate-600 font-semibold text-right">
         Actions
       </th>
 
       <td mat-cell *matCellDef="let client" class="py-3 text-right space-x-2">
-        <button mat-stroked-button color="primary" (click)="editClient.emit(client)">Edit</button>
+        <button mat-stroked-button [style.color]="'#8B5E3C'" (click)="editClient.emit(client)">Edit</button>
 
         <button mat-stroked-button color="warn" (click)="deleteClient.emit(client.id)">
           Delete

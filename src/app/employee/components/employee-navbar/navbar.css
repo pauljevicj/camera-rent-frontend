@@ -1,0 +1,15 @@
+::ng-deep .mat-mdc-tab-link.mdc-tab--active .mdc-tab__text-label {
+  color: #704936 !important;
+}
+
+/* 2. Boja teksta za NEAKTIVNE tab linkove */
+::ng-deep .mat-mdc-tab-link .mdc-tab__text-label {
+  color: #8B5E3C !important;
+  font-weight: 600;
+}
+
+/* 3. PODVUČENA LINIJA (INDIKATOR) - Dodat ::ng-deep i direktniji selektor */
+::ng-deep .mat-mdc-tab-nav-bar .mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-color: #8B5E3C !important;
+  border-bottom-width: 2px !important; /* Osigurava da se linija jasno vidi */
+}

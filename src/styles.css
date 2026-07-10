@@ -14,8 +14,7 @@ body {
   background-attachment: fixed;
 }
 
-html,
-body {
+html, body {
   height: 100%;
 }
 
@@ -23,11 +22,43 @@ body {
   box-sizing: border-box;
 }
 
-/* Material tab fix */
-.mat-mdc-tab {
-  color: #475569 !important;
+root, body {
+  --mdc-theme-primary: #8B5E3C !important;
+  --mdc-outlined-text-field-focus-border-color: #8B5E3C !important;
+  --mdc-outlined-text-field-focus-label-text-color: #8B5E3C !important;
 }
 
-.mat-mdc-tab.mdc-tab--active {
-  color: #2563eb !important;
+.mat-mdc-tab {
+  color: #8B5E3C !important;
+}
+
+.mat-mdc-tab .mdc-tab__text-label {
+  font-weight: 600;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #704936 !important; /* Tvoja tamnija braon nijansa za aktivni tekst */
+}
+
+.mat-mdc-tab-group .mdc-tab-indicator__content--underline {
+  border-color: #8B5E3C !important; /* Podvučena linija ispod aktivnog taba */
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label,
+.mat-mdc-form-field.mat-focused .mdc-floating-label span {
+  color: #8B5E3C !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #8B5E3C !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important; 
+  -webkit-text-fill-color: #000000 !important;
 }

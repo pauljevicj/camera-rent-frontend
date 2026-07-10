@@ -2,7 +2,8 @@
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-semibold">Cameras</h2>
 
-    <button mat-flat-button color="primary" (click)="openCreate()">Add camera</button>
+    <button mat-flat-button [style.background-color]="'#8B5E3C'" 
+  [style.color]="'#ffffff'" (click)="openCreate()">Add camera</button>
   </div>
 
   <app-camera-table [cameras]="cameras" (editCamera)="edit($event)" (deleteCamera)="remove($event)">

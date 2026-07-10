@@ -4,21 +4,21 @@
       <mat-form-field appearance="outline">
         <mat-label>Start date</mat-label>
         <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="startPicker" style="color: #8B5E3C;"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>End date</mat-label>
         <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="endPicker" style="color: #8B5E3C;"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
 
       <div class="flex items-center">
         <button
           mat-flat-button
-          color="primary"
+          style="background-color: #8B5E3C; color: white;"
           class="w-full"
           (click)="onSearch()"
           [disabled]="form.invalid"
