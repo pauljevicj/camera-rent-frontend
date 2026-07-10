@@ -1,9 +1,9 @@
 <div class="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort>
     <!-- Camera -->
 
     <ng-container matColumnDef="camera">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Camera</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Camera</th>
 
       <td mat-cell *matCellDef="let camera" class="py-3">
         <span class="font-medium text-slate-800">
@@ -19,7 +19,7 @@
     <!-- Condition -->
 
     <ng-container matColumnDef="condition">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Condition</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Condition</th>
 
       <td mat-cell *matCellDef="let camera" class="py-3 text-slate-700">
         {{ camera.cameraCondition }}
@@ -29,7 +29,7 @@
     <!-- Price -->
 
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Price/day</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Price/day</th>
 
       <td mat-cell *matCellDef="let camera" class="py-3">{{ camera.pricePerDay }} €</td>
     </ng-container>
@@ -37,7 +37,7 @@
     <!-- Year -->
 
     <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Year</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Year</th>
 
       <td mat-cell *matCellDef="let camera" class="py-3">
         {{ camera.year }}

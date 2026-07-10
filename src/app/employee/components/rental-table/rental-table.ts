@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -13,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-rental-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatTabsModule, MatButtonModule, MatPaginatorModule],
+  imports: [CommonModule, MatTableModule, MatTabsModule, MatButtonModule, MatPaginatorModule, MatSortModule],
   templateUrl: './rental-table.html',
   styleUrl: './rental-table.css',
 })
@@ -25,9 +26,39 @@ export class RentalTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
  
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
   ngAfterViewInit(): void {
   this.dataSource.paginator = this.paginator;
-  }
+  this.dataSource.sort = this.sort;
+
+  this.dataSource.sortingDataAccessor = (
+    item: RentalApiResponse,
+    property: string
+  ): string | number => {
+    switch (property) {
+
+      case 'client':
+        return `${item.client?.name ?? ''} ${item.client?.surname ?? ''}`;
+
+      case 'camera':
+        return `${item.camera?.cameraModel?.brand ?? ''} ${item.camera?.cameraModel?.model ?? ''}`;
+
+      case 'employee':
+        return `${item.employee?.name ?? ''} ${item.employee?.surname ?? ''}`;
+
+      case 'period':
+        return item.startDate ?? '';
+
+      case 'status':
+        return item.status ?? '';
+
+      default:
+        return '';
+    }
+  };
+}
   
   selectedTab: 'PROCESSED' | 'PENDING' = 'PROCESSED';
 

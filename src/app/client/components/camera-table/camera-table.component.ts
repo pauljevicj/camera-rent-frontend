@@ -39,16 +39,38 @@ import { JwtService } from '../../../auth/jwt-decode.service';
   ],
   templateUrl: './camera-table.component.html',
 })
-export class CameraTableComponent implements OnChanges, AfterViewInit {
+export class CameraTableComponent implements OnChanges {
   @Input() cameras: CameraModel[] = [];
   @Input() isLoading = false;
   @Input() startDate!: string;
   @Input() endDate!: string;
 
   constructor(
-    private readonly rentalService: RentalService,
-    private readonly jwtService: JwtService,
-  ) {}
+  private readonly rentalService: RentalService,
+  private readonly jwtService: JwtService,
+) {
+  this.dataSource.sortingDataAccessor = (
+    item: CameraModel,
+    property: string
+  ): string | number => {
+    switch (property) {
+      case 'name':
+        return item.name ?? '';
+
+      case 'brand':
+        return item.model ?? '';
+
+      case 'condition':
+        return item.condition ?? '';
+
+      case 'price':
+        return item.pricePerDay ?? 0;
+
+      default:
+        return '';
+    }
+  };
+}
 
   @ViewChild(MatPaginator)
   set matPaginator(paginator: MatPaginator) {
@@ -56,7 +78,13 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
       this.dataSource.paginator = paginator;
   }
   }
-  @ViewChild(MatSort) sort?: MatSort;
+
+  @ViewChild(MatSort)
+  set matSort(sort: MatSort) {
+  if (sort) {
+    this.dataSource.sort = sort;
+  }
+  }
 
   dataSource = new MatTableDataSource<CameraModel>([]);
 
@@ -64,10 +92,6 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges(): void {
   this.dataSource.data = this.cameras ?? [];
-  }
-
-  ngAfterViewInit(): void {
-  this.dataSource.sort = this.sort ?? null;
   }
 
   reserve(camera: CameraModel) {

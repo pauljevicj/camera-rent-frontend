@@ -1,9 +1,9 @@
 <div class="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort>
     <!-- Client -->
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Name</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Name</th>
 
       <td mat-cell *matCellDef="let client" class="py-3">
         <span class="font-medium text-slate-800">
@@ -19,7 +19,7 @@
     <!-- Condition -->
 
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Email</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Email</th>
 
       <td mat-cell *matCellDef="let client" class="py-3 text-slate-700">
         {{ client.email }}
@@ -29,7 +29,7 @@
     <!-- Price -->
 
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Phone Number</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Phone Number</th>
 
       <td mat-cell *matCellDef="let client" class="py-3">{{ client.phoneNumber }}</td>
     </ng-container>
@@ -37,7 +37,7 @@
     <!-- Year -->
 
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">City</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">City</th>
 
       <td mat-cell *matCellDef="let client" class="py-3">
         {{ client.city.name }}
@@ -47,7 +47,7 @@
     <!-- Status -->
 
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef class="text-slate-600 font-semibold">Type</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-slate-600 font-semibold">Type</th>
 
       <td mat-cell *matCellDef="let client">
         <span

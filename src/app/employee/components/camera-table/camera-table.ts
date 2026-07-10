@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild, AfterViewInit, OnCha
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -15,7 +16,8 @@ import { CameraApiResponse } from '../../../models/camera.model';
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSortModule
   ],
   templateUrl: './camera-table.html',
 })
@@ -27,6 +29,7 @@ export class CameraTableComponent implements AfterViewInit, OnChanges {
   @Output() deleteCamera = new EventEmitter<number>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   dataSource = new MatTableDataSource<CameraApiResponse>();
 
@@ -34,6 +37,26 @@ export class CameraTableComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort
+
+    this.dataSource.sortingDataAccessor = (item, property) => {
+    switch (property) {
+      case 'camera':
+        return item.cameraModel.brand + ' ' + item.cameraModel.model;
+
+      case 'condition':
+        return item.cameraCondition;
+
+      case 'price':
+        return item.pricePerDay;
+
+      case 'year':
+        return item.year;
+
+      default:
+        return '';
+    }
+  };
   }
 
   ngOnChanges(changes: SimpleChanges) {
