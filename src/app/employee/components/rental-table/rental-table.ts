@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 import { RentalService } from '../../../api/rental.service';
 import { RentalApiResponse } from '../../../models/rental.model';
@@ -14,7 +16,14 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-rental-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatTabsModule, MatButtonModule, MatPaginatorModule, MatSortModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    MatSortModule,
+  ],
   templateUrl: './rental-table.html',
   styleUrl: './rental-table.css',
 })
@@ -25,41 +34,40 @@ export class RentalTableComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
- 
+
   @ViewChild(MatSort)
   sort!: MatSort;
 
   ngAfterViewInit(): void {
-  this.dataSource.paginator = this.paginator;
-  this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
-  this.dataSource.sortingDataAccessor = (
-    item: RentalApiResponse,
-    property: string
-  ): string | number => {
-    switch (property) {
+    this.dataSource.sortingDataAccessor = (
+      item: RentalApiResponse,
+      property: string,
+    ): string | number => {
+      switch (property) {
+        case 'client':
+          return `${item.client?.name ?? ''} ${item.client?.surname ?? ''}`;
 
-      case 'client':
-        return `${item.client?.name ?? ''} ${item.client?.surname ?? ''}`;
+        case 'camera':
+          return `${item.camera?.cameraModel?.brand ?? ''} ${item.camera?.cameraModel?.model ?? ''}`;
 
-      case 'camera':
-        return `${item.camera?.cameraModel?.brand ?? ''} ${item.camera?.cameraModel?.model ?? ''}`;
+        case 'employee':
+          return `${item.employee?.name ?? ''} ${item.employee?.surname ?? ''}`;
 
-      case 'employee':
-        return `${item.employee?.name ?? ''} ${item.employee?.surname ?? ''}`;
+        case 'period':
+          return item.startDate ?? '';
 
-      case 'period':
-        return item.startDate ?? '';
+        case 'status':
+          return item.status ?? '';
 
-      case 'status':
-        return item.status ?? '';
+        default:
+          return '';
+      }
+    };
+  }
 
-      default:
-        return '';
-    }
-  };
-}
-  
   selectedTab: 'PROCESSED' | 'PENDING' = 'PROCESSED';
 
   constructor(
@@ -122,5 +130,40 @@ export class RentalTableComponent implements OnInit, AfterViewInit {
       },
       error: (err) => console.error(err),
     });
+  }
+
+  exportToExcel(): void {
+    const exportData = this.dataSource.data.map((rental) => ({
+      Client: `${rental.client?.name} ${rental.client?.surname}`,
+      Camera: `${rental.camera?.cameraModel?.brand} ${rental.camera?.cameraModel?.model}`,
+      Employee: `${rental.employee?.name} ${rental.employee?.surname}`,
+      'Start Date': rental.startDate,
+      'End Date': rental.endDate,
+      Status: rental.status,
+    }));
+
+    const sheetName = this.selectedTab === 'PENDING' ? 'Open Approvals' : 'Processed Rentals';
+
+    const fileName = this.selectedTab === 'PENDING' ? 'Open_Approvals' : 'Processed_Rentals';
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+
+    const workbook: XLSX.WorkBook = {
+      Sheets: {
+        [sheetName]: worksheet,
+      },
+      SheetNames: [sheetName],
+    };
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+
+    saveAs(blob, `${fileName}.xlsx`);
   }
 }
