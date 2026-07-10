@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-  <table mat-table [dataSource]="cameras">
+  <table mat-table [dataSource]="dataSource">
     <!-- Camera -->
 
     <ng-container matColumnDef="camera">
@@ -68,4 +68,5 @@
       class="hover:bg-slate-50 transition"
     ></tr>
   </table>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

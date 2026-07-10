@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  ViewChild,
-  AfterViewInit,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -57,7 +50,12 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
     private readonly jwtService: JwtService,
   ) {}
 
-  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild(MatPaginator)
+  set matPaginator(paginator: MatPaginator) {
+    if (paginator) {
+      this.dataSource.paginator = paginator;
+  }
+  }
   @ViewChild(MatSort) sort?: MatSort;
 
   dataSource = new MatTableDataSource<CameraModel>([]);
@@ -65,12 +63,11 @@ export class CameraTableComponent implements OnChanges, AfterViewInit {
   displayedColumns: string[] = ['name', 'brand', 'condition', 'price', 'actions'];
 
   ngOnChanges(): void {
-    this.dataSource.data = this.cameras ?? [];
+  this.dataSource.data = this.cameras ?? [];
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator ?? null;
-    this.dataSource.sort = this.sort ?? null;
+  this.dataSource.sort = this.sort ?? null;
   }
 
   reserve(camera: CameraModel) {

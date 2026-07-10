@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -12,15 +13,22 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-rental-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatTabsModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatTabsModule, MatButtonModule, MatPaginatorModule],
   templateUrl: './rental-table.html',
   styleUrl: './rental-table.css',
 })
-export class RentalTableComponent implements OnInit {
+export class RentalTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['client', 'camera', 'employee', 'period', 'status', 'actions'];
 
   dataSource = new MatTableDataSource<RentalApiResponse>([]);
 
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+ 
+  ngAfterViewInit(): void {
+  this.dataSource.paginator = this.paginator;
+  }
+  
   selectedTab: 'PROCESSED' | 'PENDING' = 'PROCESSED';
 
   constructor(
