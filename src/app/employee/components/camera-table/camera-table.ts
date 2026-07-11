@@ -5,6 +5,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CameraApiResponse } from '../../../models/camera.model';
 
@@ -17,7 +18,8 @@ import { CameraApiResponse } from '../../../models/camera.model';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
   ],
   templateUrl: './camera-table.html',
 })
@@ -34,6 +36,10 @@ export class CameraTableComponent implements AfterViewInit, OnChanges {
   dataSource = new MatTableDataSource<CameraApiResponse>();
 
   displayedColumns = ['camera', 'condition', 'price', 'year', 'actions'];
+
+  constructor(
+    private readonly snackBar: MatSnackBar,
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialog } from '@angular/material/dialog';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { RentalService } from '../../../api/rental.service';
 import { RentalApiResponse } from '../../../models/rental.model';
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSnackBarModule,
   ],
   templateUrl: './rental-table.html',
   styleUrl: './rental-table.css',
@@ -73,6 +75,7 @@ export class RentalTableComponent implements OnInit, AfterViewInit {
   constructor(
     private rentalService: RentalService,
     private dialog: MatDialog,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -103,25 +106,32 @@ export class RentalTableComponent implements OnInit, AfterViewInit {
   }
 
   deleteRental(id: number): void {
-    this.rentalService.delete(id).subscribe(() => {
-      this.loadRentals();
+  this.rentalService.delete(id).subscribe(() => {
+    this.snackBar.open('Rental is successfully deleted', 'OK', {
+      duration: 3000
     });
-  }
+    this.loadRentals();
+  });
+}
 
   editRental(rental: any): void {
-    const dialogRef = this.dialog.open(RentalDialogComponent, {
-      width: '400px',
-      data: rental,
-    });
+  const dialogRef = this.dialog.open(RentalDialogComponent, {
+    width: '400px',
+    data: rental,
+  });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
+  dialogRef.afterClosed().subscribe((result) => {
+    if (!result) return;
 
-      this.rentalService.update(rental.id, result).subscribe(() => {
-        this.loadRentals();
+    this.rentalService.update(rental.id, result).subscribe(() => {
+      this.snackBar.open('Rental is successfully updated', 'OK', {
+        duration: 3000
       });
+
+      this.loadRentals();
     });
-  }
+  });
+}
 
   approveRental(id: number): void {
     this.rentalService.approve(id).subscribe({
